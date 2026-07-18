@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>STUDIO | Digital Designer Portfolio</title>
+    <!-- Google Fonts: Inter for sophisticated sans-serif look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Subtle hover scale for portfolio images */
+        .portfolio-card:hover .card-image {
+            transform: scale(1.02);
+        }
+
+        /* High-end minimalist reveal animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#e3e2e2",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#1c1b1a",
+                        "surface-container": "#eeeeee",
+                        "surface-tint": "#5f5e5e",
+                        "on-primary-fixed": "#1c1b1b",
+                        "tertiary-fixed": "#e6e1df",
+                        "error-container": "#ffdad6",
+                        "outline": "#747878",
+                        "secondary-fixed-dim": "#c7c6c6",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f3f3f3",
+                        "surface": "#f9f9f9",
+                        "outline-variant": "#c4c7c7",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#1c1b1a",
+                        "surface-container-high": "#e8e8e8",
+                        "tertiary": "#000000",
+                        "on-secondary-fixed-variant": "#464747",
+                        "primary-container": "#1c1b1b",
+                        "primary-fixed": "#e5e2e1",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-surface-variant": "#444748",
+                        "inverse-on-surface": "#f1f1f1",
+                        "secondary": "#5e5e5e",
+                        "surface-bright": "#f9f9f9",
+                        "primary": "#000000",
+                        "secondary-fixed": "#e3e2e2",
+                        "inverse-surface": "#2f3131",
+                        "background": "#f9f9f9",
+                        "on-tertiary-fixed-variant": "#484645",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e2e2e2",
+                        "on-primary-container": "#858383",
+                        "on-surface": "#1a1c1c",
+                        "on-background": "#1a1c1c",
+                        "on-tertiary-container": "#868381",
+                        "on-secondary-container": "#646464",
+                        "surface-dim": "#dadada",
+                        "inverse-primary": "#c8c6c5",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-primary-fixed-variant": "#474646",
+                        "tertiary-fixed-dim": "#cac6c3",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "32px",
+                        "unit": "8px",
+                        "container-max": "1280px",
+                        "section-gap": "120px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-xl-mobile": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-xl-mobile": ["40px", { "lineHeight": "1.1", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                        "headline-xl": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+
+<body
+    class="bg-surface-container-lowest text-on-surface font-body-md antialiased selection:bg-primary selection:text-on-primary">
+    <header
+        class="w-full sticky top-0 z-50 bg-surface dark:bg-surface border-b border-outline-variant dark:border-outline flat no shadows">
+        <nav
+            class="flex justify-between items-center h-20 px-margin-desktop max-w-container-max mx-auto transition-all duration-300 ease-in-out">
+            <div class="font-headline-md text-headline-md font-bold text-primary dark:text-on-surface">
+                STUDIO
+            </div>
+            <div class="hidden md:flex items-center gap-8 font-body-md text-body-md">
+                <a class="text-primary dark:text-on-surface border-b-2 border-primary dark:border-on-surface pb-1 hover:opacity-80 transition-opacity duration-200"
+                    href="#home">Home</a>
+                <a class="text-secondary dark:text-on-secondary-container hover:opacity-80 transition-opacity duration-200"
+                    href="#work">Work</a>
+                <a class="text-secondary dark:text-on-secondary-container hover:opacity-80 transition-opacity duration-200"
+                    href="#experience">Experience</a>
+                <a class="text-secondary dark:text-on-secondary-container hover:opacity-80 transition-opacity duration-200"
+                    href="#about">About</a>
+                <a class="text-secondary dark:text-on-secondary-container hover:opacity-80 transition-opacity duration-200"
+                    href="#contact">Contact</a>
+            </div>
+            <div>
+                <a class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-label-sm hover:opacity-90 transition-opacity uppercase tracking-widest text-xs"
+                    href="#contact">
+                    Hire Me
+                </a>
+            </div>
+        </nav>
+    </header>
+    <main id="home">
+        <!-- Hero Section -->
+        <section
+            class="min-h-[819px] flex flex-col justify-center items-start px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-section-gap">
+            <div class="reveal max-w-4xl">
+                <h1
+                    class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-primary mb-8">
+                    Designing Digital Experiences
+                </h1>
+                <p class="font-body-lg text-body-lg text-secondary max-w-2xl mb-12">
+                    I am a multidisciplinary designer specializing in architectural digital interfaces and brand
+                    identities for high-end creative agencies.
+                </p>
+                <div class="flex gap-4">
+                    <a class="bg-primary text-on-primary px-10 py-4 font-label-sm uppercase tracking-widest hover:bg-neutral-800 transition-colors"
+                        href="#work">
+                        View Work
+                    </a>
+                    <a class="border border-primary text-primary px-10 py-4 font-label-sm uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all"
+                        href="#contact">
+                        Contact
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- Work/Projects Section -->
+        <section class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-section-gap" id="work">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+                <div>
+                    <span class="font-label-sm text-secondary uppercase tracking-widest mb-4 block">Selected
+                        Projects</span>
+                    <h2 class="font-headline-lg text-headline-lg text-primary">Portfolio Gallery</h2>
+                </div>
+                <div class="h-[1px] flex-grow mx-8 bg-outline-variant hidden md:block mb-3"></div>
+                <span class="font-body-md text-secondary">2022 — 2024</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+                <div class="md:col-span-8 portfolio-card group cursor-pointer reveal">
+                    <div class="overflow-hidden bg-surface-container-low mb-6 border border-surface-container-highest">
+                        <img class="card-image w-full h-[500px] object-cover transition-transform duration-700 ease-in-out"
+                            data-alt="High-end workspace visualization"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwU1wmcY7i7Fh3KJX3jazU259TOAtj7HVrLDCcdX3JBq0l8RI-zGu-rNvFlBuriEHX3pOsNNc4yU7MzdbGzGXkeNAwjytGku44EiDaVxVDw-8S8LJvIadSHDQTMjHfblzPSGLFGEsIdTqMY18KwgwlWDrnyM7CFOdCeZFF3sV2UH0UgEvaf_UydRvgJQkxSy8u1saKQqMHZMa6ECr9IQ0q0LV_YMEtgcvcwLozLpoSwKknplskyP76n4SaNLhux9nYKBwe4KA2uo8O" />
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-headline-md text-headline-md text-primary mb-2">Modernist Living</h3>
+                            <div class="flex gap-3">
+                                <span
+                                    class="px-3 py-1 border border-outline-variant rounded-full font-label-sm text-secondary text-[10px] uppercase">Identity</span>
+                                <span
+                                    class="px-3 py-1 border border-outline-variant rounded-full font-label-sm text-secondary text-[10px] uppercase">Web</span>
+                            </div>
+                        </div>
+                        <span
+                            class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </div>
+                </div>
+                <div class="md:col-span-4 portfolio-card group cursor-pointer reveal" style="animation-delay: 0.1s;">
+                    <div class="overflow-hidden bg-surface-container-low mb-6 border border-surface-container-highest">
+                        <img class="card-image w-full h-[500px] object-cover transition-transform duration-700 ease-in-out"
+                            data-alt="Branding set visualization"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwjfi_UvNcL8OOFI5XaqrzyK9gBdszNmx_LV_OXi1IsWtcb9y47vvSY3I0-KAQJAs3f9auosjIXAyuG3oupxzWxmAZx2on5MhKRircniWDeFd8T-Tr8nVLgEOU1mQaRRYl_uJt56GrHYLfd4sL5Dtm4Fzj3PLAwaACWoeGYnT8M7xRCTlhceQhtESwocE2PR9LQRI8UIkxqrKQE17RUPKJeGWBmrlmwB3zKqN8bhS9SdpsvMihkque7D3A2mie2xRKnaqO_bczElk_" />
+                    </div>
+                    <h3 class="font-headline-md text-headline-md text-primary mb-2">Tactile Goods</h3>
+                    <div class="flex gap-2">
+                        <span
+                            class="px-3 py-1 border border-outline-variant rounded-full font-label-sm text-secondary text-[10px] uppercase">Print</span>
+                    </div>
+                </div>
+                <div class="md:col-span-5 portfolio-card group cursor-pointer mt-0 md:mt-24 reveal"
+                    style="animation-delay: 0.2s;">
+                    <div class="overflow-hidden bg-surface-container-low mb-6 border border-surface-container-highest">
+                        <img class="card-image w-full h-[600px] object-cover transition-transform duration-700 ease-in-out"
+                            data-alt="Abstract 3D digital composition"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_UapFmQpAYuDh9Uve477Gb21n6Wiiu1uws5fr_1_45Gz27Zlmf7fwalXIBf-rkqiJjXsHNJCUHF8drQnLhQzJD7qJZasZ6OcQxjdRm8bG5Sp5Ct8orAkTLMDNfyAE2BtRKUqqjFm7YFuL0BDtAPZKKO9EQM38K58h-BJ2Umilq_VD-rbGnJzw-z8zxPrhFdhNbzZjPguhfk07Xz4GcUOWEyHrBPiwQxs0vuqqdlk8h6fb0pmfhkryUu_s3GlwyJ8C_IK7V5peB5J9" />
+                    </div>
+                    <h3 class="font-headline-md text-headline-md text-primary mb-2">Aether Interface</h3>
+                    <div class="flex gap-2">
+                        <span
+                            class="px-3 py-1 border border-outline-variant rounded-full font-label-sm text-secondary text-[10px] uppercase">UI/UX</span>
+                    </div>
+                </div>
+                <div class="md:col-span-7 portfolio-card group cursor-pointer reveal" style="animation-delay: 0.3s;">
+                    <div class="overflow-hidden bg-surface-container-low mb-6 border border-surface-container-highest">
+                        <img class="card-image w-full h-[400px] object-cover transition-transform duration-700 ease-in-out"
+                            data-alt="Editorial layout visualization"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjbV80go58KiMWG_681pZGOsgle-3mFVJ8S4Bcvor0C8cb38B1y5jlMFRbIUSXVI5LTGeJeePIvqFhrV9w4QLoGX8cobwN4hRllQxMRyELLhlo0ujyB6ruRpBS1mSmfb_IS5Cn4oNhtasadre_OMr3rOx3GqzDyX59pt2FdyuC-i97viRptUea9usbNG2trYQ_1aAb1vZvEE11nIb1oRBF_denFDHSTUjYgUMhbIynvBWHgEOm7Syy2KsJxoaBBP0FWp_k1ao2mK4P" />
+                    </div>
+                    <h3 class="font-headline-md text-headline-md text-primary mb-2">Vogue Digital</h3>
+                    <div class="flex gap-2">
+                        <span
+                            class="px-3 py-1 border border-outline-variant rounded-full font-label-sm text-secondary text-[10px] uppercase">Editorial</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- New Tech Stack Section -->
+        <section class="bg-surface-container-low py-section-gap border-y border-outline-variant" id="tech-stack">
+            <div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto text-center reveal">
+                <span class="font-label-sm text-secondary uppercase tracking-widest mb-12 block">Technology Stack</span>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-y-12 gap-x-8 items-center opacity-60">
+                    <div class="flex flex-col items-center gap-4 group hover:opacity-100 transition-opacity">
+                        <span class="font-headline-md font-bold tracking-tight">React</span>
+                        <span
+                            class="h-0.5 w-8 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform"></span>
+                    </div>
+                    <div class="flex flex-col items-center gap-4 group hover:opacity-100 transition-opacity">
+                        <span class="font-headline-md font-bold tracking-tight">Next.js</span>
+                        <span
+                            class="h-0.5 w-8 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform"></span>
+                    </div>
+                    <div class="flex flex-col items-center gap-4 group hover:opacity-100 transition-opacity">
+                        <span class="font-headline-md font-bold tracking-tight">Tailwind</span>
+                        <span
+                            class="h-0.5 w-8 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform"></span>
+                    </div>
+                    <div class="flex flex-col items-center gap-4 group hover:opacity-100 transition-opacity">
+                        <span class="font-headline-md font-bold tracking-tight">TypeScript</span>
+                        <span
+                            class="h-0.5 w-8 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform"></span>
+                    </div>
+                    <div class="flex flex-col items-center gap-4 group hover:opacity-100 transition-opacity">
+                        <span class="font-headline-md font-bold tracking-tight">Figma</span>
+                        <span
+                            class="h-0.5 w-8 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- New Experience Section -->
+        <section class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-section-gap"
+            id="experience">
+            <div class="flex flex-col md:flex-row justify-between items-start mb-16 gap-12">
+                <div class="md:w-1/3 reveal">
+                    <span class="font-label-sm text-secondary uppercase tracking-widest mb-4 block">Work History</span>
+                    <h2 class="font-headline-lg text-headline-lg text-primary">Professional Journey</h2>
+                </div>
+                <div class="md:w-2/3 reveal space-y-12">
+                    <div class="border-b border-outline-variant pb-12">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="font-headline-md text-primary">Senior Interface Designer</h4>
+                            <span class="font-label-sm text-secondary uppercase">2022 — Present</span>
+                        </div>
+                        <p class="font-body-md text-primary font-medium mb-4">Luxe Digital Lab, New York</p>
+                        <ul class="font-body-md text-secondary space-y-2 list-disc list-inside">
+                            <li>Led design for three flagship e-commerce platforms generating $10M+ revenue</li>
+                            <li>Established a comprehensive design system adopted across 5 product teams</li>
+                            <li>Mentored junior designers and optimized cross-functional handoff workflows</li>
+                        </ul>
+                    </div>
+                    <div class="border-b border-outline-variant pb-12">
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="font-headline-md text-primary">UI/UX Designer</h4>
+                            <span class="font-label-sm text-secondary uppercase">2019 — 2022</span>
+                        </div>
+                        <p class="font-body-md text-primary font-medium mb-4">Minimalist Studio, London</p>
+                        <ul class="font-body-md text-secondary space-y-2 list-disc list-inside">
+                            <li>Developed visual identities for 15+ award-winning boutique agencies</li>
+                            <li>Improved user retention by 35% through data-driven architectural redesigns</li>
+                            <li>Collaborated directly with founders to translate vision into digital reality</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <h4 class="font-headline-md text-primary">Junior Web Designer</h4>
+                            <span class="font-label-sm text-secondary uppercase">2017 — 2019</span>
+                        </div>
+                        <p class="font-body-md text-primary font-medium mb-4">Creative Core Agency</p>
+                        <ul class="font-body-md text-secondary space-y-2 list-disc list-inside">
+                            <li>Delivered pixel-perfect responsive layouts for high-traffic media sites</li>
+                            <li>Maintained brand consistency across multiple digital touchpoints</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- New Education Section -->
+        <section class="bg-surface py-section-gap border-t border-outline-variant" id="education">
+            <div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto reveal">
+                <div class="max-w-4xl">
+                    <span class="font-label-sm text-secondary uppercase tracking-widest mb-12 block">Academic
+                        Background</span>
+                    <div class="space-y-12">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div>
+                                <h3 class="font-headline-md text-primary">Master of Fine Arts in Interaction Design</h3>
+                                <p class="font-body-md text-secondary">Royal College of Art, London</p>
+                            </div>
+                            <span class="font-label-sm text-secondary uppercase">Class of 2017</span>
+                        </div>
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div>
+                                <h3 class="font-headline-md text-primary">Bachelor of Science in Digital Media</h3>
+                                <p class="font-body-md text-secondary">Parsons School of Design, NY</p>
+                            </div>
+                            <span class="font-label-sm text-secondary uppercase">Class of 2015</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- About Section -->
+        <section class="bg-surface py-section-gap border-t border-outline-variant" id="about">
+            <div
+                class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+                <div class="md:col-span-5 reveal">
+                    <div class="aspect-[4/5] bg-surface-container overflow-hidden">
+                        <img class="w-full h-full object-cover" data-alt="Portrait of designer"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDT1yt9HT7OzuOnRCEaa9Xsz-K5a0NgwrXDSxfUH6CC_ixx1FCYdtFX1qFzojJSq0hg7YKTDP67viIRKjegH-dtEgIaey_cIy3iTholbowCQ2nqVGZg_R3eKJFzUtgnxKlllgbTZ98WHI0EBJ3RQ93hzwm5JNNQbPagXlQ92MjP9LPkQtk3oOFFxSfMyOp_L-pZQ8H2x46PJ3mls1ZfzxZ0DecurR_YP7JDiajYDjY7mXCjMmCl_KtWICtTRleis5Qqmym2XyqtvQYl" />
+                    </div>
+                </div>
+                <div class="md:col-span-6 md:col-start-7 reveal" style="animation-delay: 0.1s;">
+                    <span class="font-label-sm text-secondary uppercase tracking-widest mb-6 block">About the
+                        Designer</span>
+                    <h2 class="font-headline-lg text-headline-lg text-primary mb-8">
+                        Precision-driven design for the modern era.
+                    </h2>
+                    <div class="space-y-6 font-body-lg text-body-lg text-secondary">
+                        <p>
+                            I believe that great design is not about what you add, but what you can take away while
+                            maintaining the core message. My practice focuses on building digital ecosystems that feel
+                            effortless and architectural.
+                        </p>
+                        <p>
+                            With over 8 years of experience working with global luxury brands and boutique agencies, I
+                            bridge the gap between aesthetic beauty and functional performance.
+                        </p>
+                    </div>
+                    <div class="mt-12">
+                        <button
+                            class="border-b border-primary text-primary font-label-sm uppercase tracking-widest pb-1 hover:opacity-60 transition-opacity">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Contact/CTA Section -->
+        <section
+            class="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto text-center reveal"
+            id="contact">
+            <div class="max-w-3xl mx-auto">
+                <span class="font-label-sm text-secondary uppercase tracking-widest mb-8 block">Project Inquiry</span>
+                <h2
+                    class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-primary mb-12">
+                    Let's work together.
+                </h2>
+                <div class="flex flex-col md:flex-row justify-center gap-6">
+                    <a class="bg-primary text-on-primary px-12 py-5 font-label-sm uppercase tracking-widest hover:opacity-90 transition-opacity"
+                        href="mailto:hello@studio.com">
+                        Email Me
+                    </a>
+                    <a class="border border-primary text-primary px-12 py-5 font-label-sm uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all"
+                        href="#">
+                        Book a Call
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer
+        class="w-full py-16 border-t border-outline-variant dark:border-outline bg-surface dark:bg-surface flat no shadows">
+        <div
+            class="flex flex-col md:flex-row justify-between items-center px-margin-desktop max-w-container-max mx-auto gap-8 transition-opacity duration-200">
+            <div class="font-headline-md text-headline-md font-bold text-primary dark:text-on-surface">
+                STUDIO
+            </div>
+            <div class="flex gap-12 font-body-md text-body-md">
+                <a class="text-secondary dark:text-on-secondary-container hover:text-primary dark:hover:text-on-surface transition-colors"
+                    href="#">Instagram</a>
+                <a class="text-secondary dark:text-on-secondary-container hover:text-primary dark:hover:text-on-surface transition-colors"
+                    href="#">LinkedIn</a>
+                <a class="text-secondary dark:text-on-secondary-container hover:text-primary dark:hover:text-on-surface transition-colors"
+                    href="#">Dribbble</a>
+            </div>
+            <div class="font-body-md text-body-md text-secondary dark:text-on-secondary-container">
+                © 2024 Studio. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    <script>
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section, .portfolio-card').forEach(el => {
+            el.style.opacity = '0';
+            observer.observe(el);
+        });
+
+        const logo = document.querySelector('header .font-headline-md');
+        logo.addEventListener('mouseenter', () => {
+            logo.style.letterSpacing = '0.05em';
+            logo.style.transition = 'all 0.4s ease';
+        });
+        logo.addEventListener('mouseleave', () => {
+            logo.style.letterSpacing = 'normal';
+        });
+    </script>
+</body>
+
+</html>
