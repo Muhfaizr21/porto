@@ -43,7 +43,7 @@ const Faq = () => {
             return (
               <div 
                 key={faq.id} 
-                className={`border border-outline-variant rounded-2xl overflow-hidden transition-all duration-300 reveal ${isOpen ? 'bg-surface-container shadow-sm border-brand-500/30' : 'bg-surface hover:bg-surface-container-lowest'}`}
+                className={`border border-outline-variant rounded-2xl overflow-hidden transition-all duration-300 ${isOpen ? 'bg-surface-container shadow-sm border-brand-500/30' : 'bg-surface hover:bg-surface-container-lowest'}`}
                 style={{ transitionDelay: `${idx * 0.05}s` }}
               >
                 <button

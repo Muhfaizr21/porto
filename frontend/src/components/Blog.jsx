@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { FiArrowRight } from 'react-icons/fi';
+import { FiArrowRight, FiX } from 'react-icons/fi';
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedBlog, setSelectedBlog] = useState(null);
 
   useEffect(() => {
     fetch('/api/blogs')
@@ -15,6 +16,15 @@ const Blog = () => {
       })
       .catch(() => setBlogs([]))
       .finally(() => setLoading(false));
+  }, []);
+
+  // Tutup modal jika user menekan Escape
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setSelectedBlog(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   if (loading || blogs.length === 0) return null;
@@ -30,8 +40,13 @@ const Blog = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogs.slice(0, 3).map((blog, idx) => (
-            <div key={blog.id} className="group bg-surface border border-outline-variant rounded-3xl overflow-hidden hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/10 transition-all reveal" style={{ transitionDelay: `${idx * 0.1}s` }}>
+          {blogs.map((blog, idx) => (
+            <div 
+              key={blog.id} 
+              onClick={() => setSelectedBlog(blog)}
+              className="group bg-surface border border-outline-variant rounded-3xl overflow-hidden hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/10 transition-all cursor-pointer reveal" 
+              style={{ transitionDelay: `${(idx % 3) * 0.1}s` }}
+            >
               <div className="aspect-[16/9] w-full bg-surface-container overflow-hidden">
                 {blog.image ? (
                   <img 
@@ -62,6 +77,57 @@ const Blog = () => {
           ))}
         </div>
       </div>
+
+      {/* Modal Detail Blog */}
+      {selectedBlog && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-black/60 backdrop-blur-sm" onClick={() => setSelectedBlog(null)}>
+          <div 
+            className="bg-surface border border-outline-variant w-full max-w-3xl max-h-[90vh] rounded-3xl overflow-hidden flex flex-col shadow-2xl animate-fade-in-up"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header / Image */}
+            <div className="relative aspect-[21/9] w-full bg-surface-container overflow-hidden shrink-0">
+              {selectedBlog.image ? (
+                <img 
+                  src={selectedBlog.image.startsWith('http') ? selectedBlog.image : `/api/uploads/${selectedBlog.image}`} 
+                  alt={selectedBlog.title} 
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-surface-container-high text-secondary">
+                  <span className="text-6xl font-bold opacity-20">{selectedBlog.title.charAt(0)}</span>
+                </div>
+              )}
+              {/* Overlay Gradient for readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
+              
+              <button 
+                onClick={() => setSelectedBlog(null)}
+                className="absolute top-4 right-4 w-10 h-10 bg-surface/80 backdrop-blur-md rounded-full flex items-center justify-center text-primary hover:bg-surface-container-highest transition-colors border border-outline-variant"
+              >
+                <FiX size={20} />
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-6 md:p-10 overflow-y-auto custom-scrollbar">
+              <p className="text-sm font-medium text-brand-500 mb-3 tracking-wide">
+                {new Date(selectedBlog.created_at).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </p>
+              <h2 className="text-2xl md:text-4xl font-bold text-primary mb-8 leading-tight">
+                {selectedBlog.title}
+              </h2>
+              <div className="prose prose-invert prose-brand max-w-none text-secondary">
+                {/* Because we don't have a rich text editor currently saving HTML, 
+                    we'll just render the content with whitespace preservation */}
+                <div className="whitespace-pre-wrap leading-relaxed">
+                  {selectedBlog.content}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
