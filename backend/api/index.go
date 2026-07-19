@@ -5,6 +5,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/Muhfaizr21/portof-backend/app/Models"
 	"github.com/Muhfaizr21/portof-backend/config"
 	"github.com/Muhfaizr21/portof-backend/routes"
 	"github.com/gin-contrib/cors"
@@ -16,6 +17,16 @@ var app *gin.Engine
 func init() {
 	// Koneksi ke Database PostgreSQL
 	config.ConnectDB()
+
+	// Auto migrate saat inisialisasi di Vercel
+	if config.DB != nil {
+		config.DB.AutoMigrate(
+			&Models.Testimonial{},
+			&Models.Project{},
+			&Models.Blog{},
+			&Models.Faq{},
+		)
+	}
 
 	// Inisialisasi router Gin
 	app = gin.Default()
