@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { FiX } from 'react-icons/fi';
-import axios from 'axios';
 
 const TestimonialModal = ({ isOpen, onClose, testimonial, onSuccess }) => {
   const [formData, setFormData] = useState({
@@ -37,20 +36,29 @@ const TestimonialModal = ({ isOpen, onClose, testimonial, onSuccess }) => {
 
     try {
       const token = localStorage.getItem('token');
-      const config = {
-        headers: { Authorization: `Bearer ${token}` }
-      };
-
-      if (testimonial) {
-        await axios.put(`${import.meta.env.VITE_API_URL}/api/admin/testimonials/${testimonial.ID}`, formData, config);
-      } else {
-        await axios.post(`${import.meta.env.VITE_API_URL}/api/admin/testimonials`, formData, config);
-      }
+      const url = testimonial 
+        ? `/api/admin/testimonials/${testimonial.ID}` 
+        : `/api/admin/testimonials`;
+      const method = testimonial ? 'PUT' : 'POST';
       
+      const res = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(formData)
+      });
+      
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || 'Terjadi kesalahan saat menyimpan testimonial');
+      }
+
       onSuccess();
       onClose();
     } catch (err) {
-      setError(err.response?.data?.error || 'Terjadi kesalahan saat menyimpan testimonial');
+      setError(err.message || 'Terjadi kesalahan saat menyimpan testimonial');
     } finally {
       setLoading(false);
     }
