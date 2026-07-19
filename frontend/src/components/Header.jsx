@@ -21,8 +21,12 @@ const Header = () => {
   }, [dark]);
 
   useEffect(() => {
+    // Attempt to fetch dynamic CV path if backend provides it via a full URL,
+    // otherwise fallback to the default static /cv.pdf we put in public folder.
     fetch('/api/about').then(r => r.json()).then(d => {
-      if (d.data?.cv_path) setCvUrl(`http://localhost:8080/uploads/${d.data.cv_path}`);
+      if (d.data?.cv_path && d.data.cv_path.startsWith('http')) {
+        setCvUrl(d.data.cv_path);
+      }
     }).catch(() => {});
   }, []);
 
