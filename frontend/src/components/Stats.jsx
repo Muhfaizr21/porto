@@ -32,11 +32,33 @@ const Counter = ({ end, suffix = '', duration = 2000 }) => {
 };
 
 const Stats = () => {
+  const [counts, setCounts] = useState({
+    projects: 0,
+    experience: 0,
+    certifications: 0,
+    tools: 14 // Based on the 14 skills in TechStack.jsx
+  });
+
+  useEffect(() => {
+    Promise.all([
+      fetch('/api/projects').then(r => r.json()).catch(() => ({})),
+      fetch('/api/experiences').then(r => r.json()).catch(() => ({})),
+      fetch('/api/certifications').then(r => r.json()).catch(() => ({}))
+    ]).then(([projRes, expRes, certRes]) => {
+      setCounts(prev => ({
+        ...prev,
+        projects: projRes?.data?.length || prev.projects,
+        experience: expRes?.data?.length || prev.experience,
+        certifications: certRes?.data?.length || prev.certifications
+      }));
+    });
+  }, []);
+
   const items = [
-    { value: 42, suffix: '+', label: 'Proyek Selesai' },
-    { value: 3, suffix: '+', label: 'Tahun Pengalaman' },
-    { value: 8, suffix: '+', label: 'Sertifikasi' },
-    { value: 5, suffix: '+', label: 'Tools & Tech Stack' },
+    { value: counts.projects, suffix: '+', label: 'Proyek Selesai' },
+    { value: counts.experience, suffix: '+', label: 'Pengalaman Kerja' },
+    { value: counts.certifications, suffix: '+', label: 'Sertifikasi' },
+    { value: counts.tools, suffix: '+', label: 'Tools & Tech Stack' },
   ];
 
   return (
