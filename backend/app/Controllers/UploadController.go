@@ -28,11 +28,8 @@ func UploadImage(c *gin.Context) {
 		return
 	}
 
-	// Kembalikan URL gambar
-	imageUrl := fmt.Sprintf("http://localhost:8080/uploads/%s", newFileName)
-
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Upload berhasil",
-		"url":     imageUrl,
+		"url":     newFileName,
 	})
 }

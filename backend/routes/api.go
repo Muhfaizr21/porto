@@ -9,6 +9,9 @@ import (
 func SetupRoutes(r *gin.Engine) {
 	api := r.Group("/api")
 	{
+		// Serve static uploads via /api/uploads
+		api.Static("/uploads", "./uploads")
+
 		// Public routes
 		api.GET("/health", Controllers.HealthCheck)
 		api.POST("/contact", Controllers.SubmitContact)
