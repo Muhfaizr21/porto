@@ -26,6 +26,9 @@ func init() {
 			&Models.Blog{},
 			&Models.Faq{},
 		)
+
+		// Seed data otomatis jika tabel kosong di production
+		seedDataIfEmpty()
 	}
 
 	// Inisialisasi router Gin
