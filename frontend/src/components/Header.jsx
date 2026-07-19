@@ -37,7 +37,7 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    const ids = ['work', 'experience', 'stack', 'about', 'contact'];
+    const ids = ['work', 'experience', 'stack', 'about', 'blog', 'contact'];
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) setActiveSection(e.target.id); });
     }, { rootMargin: '-40% 0px -55% 0px' });
@@ -50,6 +50,7 @@ const Header = () => {
     { href: '#experience', label: 'Experience', icon: 'work_history' },
     { href: '#stack', label: 'Stack', icon: 'terminal' },
     { href: '#about', label: 'About', icon: 'person' },
+    { href: '#blog', label: 'Blog', icon: 'article' },
   ];
 
   return (

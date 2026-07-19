@@ -28,11 +28,11 @@ const Landing = () => {
         <Experience />
         <Education />
         <Awards />
-        <Blog />
         <Testimonials />
         <Faq />
         <GitHubActivity />
         <About />
+        <Blog />
         <Contact />
       </main>
       <Footer />
