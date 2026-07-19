@@ -14,15 +14,15 @@ const Testimonials = () => {
     fetch('/api/testimonials')
       .then(r => r.json())
       .then(d => { 
-        // The API returns an array directly, not d.data
-        if (Array.isArray(d) && d.length > 0) setItems(d); 
-        else setItems(fallback); 
+        if (d && d.data && Array.isArray(d.data)) setItems(d.data);
+        else if (Array.isArray(d)) setItems(d);
+        else setItems([]);
       })
-      .catch(() => setItems(fallback))
+      .catch(() => setItems([]))
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return null;
+  if (loading || items.length === 0) return null;
 
   return (
     <section id="testimonials" className="py-section-gap border-t border-outline-variant">
