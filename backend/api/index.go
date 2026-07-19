@@ -45,6 +45,10 @@ func init() {
 	corsConfig.AllowMethods = []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"}
 	corsConfig.AllowHeaders = []string{"Origin", "Content-Type", "Accept", "Authorization"}
 	app.Use(cors.New(corsConfig))
+	app.GET("/api/trigger-seed", func(c *gin.Context) {
+		seedDataIfEmpty()
+		c.JSON(200, "seeded manually")
+	})
 
 	// Pendaftaran Routes
 	routes.SetupRoutes(app)
