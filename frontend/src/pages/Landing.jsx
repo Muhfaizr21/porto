@@ -18,7 +18,7 @@ const Landing = () => {
   return (
     <>
       <Header />
-      <main>
+      <main className="pb-20 md:pb-0">
         <Hero />
         <Stats />
         <Work />
