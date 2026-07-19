@@ -14,7 +14,7 @@ const TechStack = () => {
       title: "Frontend & UI",
       skills: [
         { name: 'React', icon: <SiReact />, color: '#61DAFB' },
-        { name: 'Next.js', icon: <SiNextdotjs />, color: '#000000' },
+        { name: 'Next.js', icon: <SiNextdotjs />, color: '' },
         { name: 'Vue.js', icon: <SiVuedotjs />, color: '#4FC08D' },
         { name: 'Tailwind', icon: <SiTailwindcss />, color: '#06B6D4' },
         { name: 'TypeScript', icon: <SiTypescript />, color: '#3178C6' },
@@ -29,7 +29,7 @@ const TechStack = () => {
       title: "Backend & Database",
       skills: [
         { name: 'Node.js', icon: <SiNodedotjs />, color: '#339933' },
-        { name: 'Express', icon: <SiExpress />, color: '#000000' },
+        { name: 'Express', icon: <SiExpress />, color: '' },
         { name: 'Laravel', icon: <SiLaravel />, color: '#FF2D20' },
         { name: 'PHP', icon: <SiPhp />, color: '#777BB4' },
         { name: 'Python', icon: <SiPython />, color: '#3776AB' },
@@ -45,14 +45,14 @@ const TechStack = () => {
       skills: [
         { name: 'Docker', icon: <SiDocker />, color: '#2496ED' },
         { name: 'Kubernetes', icon: <SiKubernetes />, color: '#326CE5' },
-        { name: 'AWS', icon: <FaAws />, color: '#232F3E' },
+        { name: 'AWS', icon: <FaAws />, color: '' },
         { name: 'GCP', icon: <SiGooglecloud />, color: '#4285F4' },
-        { name: 'Vercel', icon: <SiVercel />, color: '#000000' },
+        { name: 'Vercel', icon: <SiVercel />, color: '' },
         { name: 'Firebase', icon: <SiFirebase />, color: '#FFCA28' },
         { name: 'Supabase', icon: <SiSupabase />, color: '#3ECF8E' },
         { name: 'Nginx', icon: <SiNginx />, color: '#009639' },
         { name: 'Git', icon: <SiGit />, color: '#F05032' },
-        { name: 'GitHub', icon: <SiGithub />, color: '#181717' },
+        { name: 'GitHub', icon: <SiGithub />, color: '' },
       ]
     }
   ];
@@ -85,8 +85,8 @@ const TechStack = () => {
                     className="group flex flex-col items-center justify-center gap-3 py-5 px-2 bg-white dark:bg-slate-800/80 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 dark:hover:border-brand-500/30 backdrop-blur-sm"
                   >
                     <div 
-                      className="text-3xl md:text-4xl transition-transform duration-300 group-hover:scale-110 drop-shadow-sm" 
-                      style={{ color: s.color }}
+                      className={`text-3xl md:text-4xl transition-transform duration-300 group-hover:scale-110 drop-shadow-sm ${!s.color ? 'text-slate-900 dark:text-white' : ''}`}
+                      style={s.color ? { color: s.color } : {}}
                     >
                       {s.icon}
                     </div>
