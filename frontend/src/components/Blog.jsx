@@ -39,7 +39,7 @@ const Blog = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 lg:gap-8">
           {blogs.map((blog, idx) => (
             <div 
               key={blog.id} 
@@ -60,16 +60,17 @@ const Blog = () => {
                   </div>
                 )}
               </div>
-              <div className="p-6">
-                <p className="text-xs text-secondary mb-3">{new Date(blog.created_at).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                <h3 className="text-xl font-bold text-primary mb-3 line-clamp-2 group-hover:text-brand-600 transition-colors">
+              <div className="p-3 md:p-6">
+                <p className="text-[10px] md:text-xs text-secondary mb-2 md:mb-3">{new Date(blog.created_at).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                <h3 className="text-sm md:text-xl font-bold text-primary mb-2 md:mb-3 line-clamp-2 group-hover:text-brand-600 transition-colors leading-tight">
                   {blog.title}
                 </h3>
-                <p className="text-secondary line-clamp-3 mb-6 text-sm">
+                <p className="text-secondary line-clamp-2 md:line-clamp-3 mb-3 md:mb-6 text-[11px] md:text-sm">
                   {blog.content}
                 </p>
-                <div className="flex items-center text-brand-600 font-medium text-sm group-hover:gap-2 transition-all">
-                  <span>Baca selengkapnya</span>
+                <div className="flex items-center text-brand-600 font-medium text-xs md:text-sm group-hover:gap-2 transition-all">
+                  <span className="hidden sm:inline">Baca selengkapnya</span>
+                  <span className="sm:hidden">Baca</span>
                   <FiArrowRight className="ml-1" />
                 </div>
               </div>
