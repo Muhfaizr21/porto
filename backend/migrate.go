@@ -14,7 +14,7 @@ func main() {
 
 	dsn := os.Getenv("DATABASE_URL")
 	if dsn == "" {
-		log.Fatal("DATABASE_URL is required")
+		dsn = "host=localhost user=muhfaiizr password=admin dbname=portof port=5432 sslmode=disable TimeZone=Asia/Jakarta"
 	}
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
@@ -22,8 +22,13 @@ func main() {
 		log.Fatalf("Gagal terhubung ke database: %v", err)
 	}
 
-	fmt.Println("Migrating Testimonial...")
-	err = db.AutoMigrate(&Models.Testimonial{})
+	fmt.Println("Migrating Database...")
+	err = db.AutoMigrate(
+		&Models.Testimonial{},
+		&Models.Project{},
+		&Models.Blog{},
+		&Models.Faq{},
+	)
 	if err != nil {
 		log.Fatalf("Gagal migrate: %v", err)
 	}

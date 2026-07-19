@@ -13,6 +13,9 @@ type Project struct {
 	DemoURL     string          `gorm:"type:text" json:"demo_url"`
 	Year        string          `gorm:"type:varchar(50)" json:"year"`
 	Description string          `gorm:"type:text" json:"description"`
+	Problem     string          `gorm:"type:text" json:"problem"`
+	Solution    string          `gorm:"type:text" json:"solution"`
+	Impact      string          `gorm:"type:text" json:"impact"`
 	Tags        json.RawMessage `gorm:"type:jsonb" json:"tags"`
 	Color       string          `gorm:"type:varchar(100)" json:"color"`
 	Image       string          `gorm:"type:text" json:"image"`

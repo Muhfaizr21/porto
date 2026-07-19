@@ -58,6 +58,9 @@ func UpdateProject(c *gin.Context) {
 	project.DemoURL = input.DemoURL
 	project.Year = input.Year
 	project.Description = input.Description
+	project.Problem = input.Problem
+	project.Solution = input.Solution
+	project.Impact = input.Impact
 	project.Tags = input.Tags
 	project.Color = input.Color
 	project.Image = input.Image

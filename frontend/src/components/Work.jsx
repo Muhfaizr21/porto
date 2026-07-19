@@ -80,6 +80,29 @@ const Work = () => {
                   
                   <p className="text-sm text-secondary line-clamp-3">{p.description}</p>
                   
+                  {/* Case Study Details */}
+                  {(p.problem || p.solution || p.impact) && (
+                    <div className="flex flex-col gap-3 mt-2">
+                      {p.problem && (
+                        <div>
+                          <h4 className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Problem</h4>
+                          <p className="text-sm text-secondary line-clamp-2">{p.problem}</p>
+                        </div>
+                      )}
+                      {p.solution && (
+                        <div>
+                          <h4 className="text-xs font-bold text-brand-600 uppercase tracking-wider mb-1">Solution</h4>
+                          <p className="text-sm text-secondary line-clamp-2">{p.solution}</p>
+                        </div>
+                      )}
+                      {p.impact && (
+                        <div>
+                          <h4 className="text-xs font-bold text-emerald-600 uppercase tracking-wider mb-1">Impact</h4>
+                          <p className="text-sm text-secondary line-clamp-2">{p.impact}</p>
+                        </div>
+                      )}
+                    </div>
+                  )}
                   <div className="flex flex-wrap gap-2 mt-auto">
                     {(p.tags || []).map((tag, ti) => (
                       <span key={ti} className="text-[10px] sm:text-xs text-secondary bg-surface-container-low border border-outline-variant/50 px-2 py-1 rounded-md">{tag}</span>

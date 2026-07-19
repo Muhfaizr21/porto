@@ -27,6 +27,9 @@ const ProjectModal = ({ isOpen, onClose, project, onSave }) => {
         url: project.url || '',
         repo_url: project.repo_url || '',
         demo_url: project.demo_url || '',
+        problem: project.problem || '',
+        solution: project.solution || '',
+        impact: project.impact || '',
         tags: project.tags ? JSON.parse(project.tags).join(', ') : '',
         color: project.color || '#3B82F6'
       });
@@ -43,6 +46,9 @@ const ProjectModal = ({ isOpen, onClose, project, onSave }) => {
         url: '',
         repo_url: '',
         demo_url: '',
+        problem: '',
+        solution: '',
+        impact: '',
         tags: '',
         color: '#3B82F6'
       });
@@ -84,6 +90,9 @@ const ProjectModal = ({ isOpen, onClose, project, onSave }) => {
       formDataToSend.append('url', formData.url);
       formDataToSend.append('repo_url', formData.repo_url);
       formDataToSend.append('demo_url', formData.demo_url);
+      formDataToSend.append('problem', formData.problem);
+      formDataToSend.append('solution', formData.solution);
+      formDataToSend.append('impact', formData.impact);
       
       const tagsArray = formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag);
       formDataToSend.append('tags', JSON.stringify(tagsArray));
@@ -173,6 +182,39 @@ const ProjectModal = ({ isOpen, onClose, project, onSave }) => {
                 value={formData.description} 
                 onChange={handleChange} 
                 required
+                rows={3}
+                className="w-full bg-surface-container border border-outline-variant rounded-xl px-4 py-2.5 text-primary focus:outline-none focus:border-blue-500 transition-colors resize-none"
+              ></textarea>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-secondary">Problem (Studi Kasus)</label>
+              <textarea 
+                name="problem" 
+                value={formData.problem} 
+                onChange={handleChange} 
+                rows={3}
+                className="w-full bg-surface-container border border-outline-variant rounded-xl px-4 py-2.5 text-primary focus:outline-none focus:border-blue-500 transition-colors resize-none"
+              ></textarea>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-secondary">Solution (Studi Kasus)</label>
+              <textarea 
+                name="solution" 
+                value={formData.solution} 
+                onChange={handleChange} 
+                rows={3}
+                className="w-full bg-surface-container border border-outline-variant rounded-xl px-4 py-2.5 text-primary focus:outline-none focus:border-blue-500 transition-colors resize-none"
+              ></textarea>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-secondary">Impact (Studi Kasus)</label>
+              <textarea 
+                name="impact" 
+                value={formData.impact} 
+                onChange={handleChange} 
                 rows={3}
                 className="w-full bg-surface-container border border-outline-variant rounded-xl px-4 py-2.5 text-primary focus:outline-none focus:border-blue-500 transition-colors resize-none"
               ></textarea>

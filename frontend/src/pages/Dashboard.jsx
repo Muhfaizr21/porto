@@ -8,6 +8,8 @@ import CertificationModal from '../components/admin/CertificationModal';
 import AwardModal from '../components/admin/AwardModal';
 import TestimonialModal from '../components/admin/TestimonialModal';
 import AboutTab from '../components/admin/tabs/AboutTab';
+import BlogsTab from '../components/admin/tabs/BlogsTab';
+import FaqsTab from '../components/admin/tabs/FaqsTab';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('about');
@@ -378,6 +380,20 @@ const Dashboard = () => {
             <FiMessageSquare className="text-xl" />
             <span>Testimonial</span>
           </button>
+          <button 
+            onClick={() => setActiveTab('blogs')} 
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${activeTab === 'blogs' ? 'bg-surface-container-highest font-medium text-primary shadow-sm' : 'text-secondary hover:bg-surface-container-highest hover:text-primary'}`}
+          >
+            <FiBook className="text-xl" />
+            <span>Blog</span>
+          </button>
+          <button 
+            onClick={() => setActiveTab('faqs')} 
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${activeTab === 'faqs' ? 'bg-surface-container-highest font-medium text-primary shadow-sm' : 'text-secondary hover:bg-surface-container-highest hover:text-primary'}`}
+          >
+            <FiMessageSquare className="text-xl" />
+            <span>FAQ</span>
+          </button>
           <a href="/" target="_blank" className="flex items-center gap-3 text-secondary hover:bg-surface-container-highest hover:text-primary px-4 py-3 rounded-xl font-medium transition-colors mt-4">
             <FiHome />
             Lihat Web
@@ -398,6 +414,8 @@ const Dashboard = () => {
       {/* Main Content */}
       <main className="flex-1 p-6 md:p-10 bg-surface-container-lowest overflow-y-auto">
         {activeTab === 'about' && <AboutTab />}
+        {activeTab === 'blogs' && <BlogsTab />}
+        {activeTab === 'faqs' && <FaqsTab />}
         
         {activeTab === 'contacts' && (
           <div className="animate-fade-in">

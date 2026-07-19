@@ -8,6 +8,8 @@ import Experience from '../components/Experience';
 import Education from '../components/Education';
 import Awards from '../components/Awards';
 import Testimonials from '../components/Testimonials';
+import Blog from '../components/Blog';
+import Faq from '../components/Faq';
 import GitHubActivity from '../components/GitHubActivity';
 import About from '../components/About';
 import Contact from '../components/Contact';
@@ -26,7 +28,9 @@ const Landing = () => {
         <Experience />
         <Education />
         <Awards />
+        <Blog />
         <Testimonials />
+        <Faq />
         <GitHubActivity />
         <About />
         <Contact />

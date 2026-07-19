@@ -19,6 +19,9 @@ func SetupRoutes(r *gin.Engine) {
 		api.GET("/awards", Controllers.GetAwards)
 		api.GET("/about", Controllers.GetAbout)
 		api.GET("/testimonials", Controllers.GetTestimonials)
+		api.GET("/blogs", Controllers.GetBlogs)
+		api.GET("/blogs/:slug", Controllers.GetBlogBySlug)
+		api.GET("/faqs", Controllers.GetFaqs)
 		api.POST("/auth/login", Controllers.Login)
 
 		// Admin protected routes
@@ -51,6 +54,14 @@ func SetupRoutes(r *gin.Engine) {
 			admin.POST("/testimonials", Controllers.CreateTestimonial)
 			admin.PUT("/testimonials/:id", Controllers.UpdateTestimonial)
 			admin.DELETE("/testimonials/:id", Controllers.DeleteTestimonial)
+
+			admin.POST("/blogs", Controllers.CreateBlog)
+			admin.PUT("/blogs/:id", Controllers.UpdateBlog)
+			admin.DELETE("/blogs/:id", Controllers.DeleteBlog)
+
+			admin.POST("/faqs", Controllers.CreateFaq)
+			admin.PUT("/faqs/:id", Controllers.UpdateFaq)
+			admin.DELETE("/faqs/:id", Controllers.DeleteFaq)
 		}
 	}
 }

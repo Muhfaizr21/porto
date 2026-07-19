@@ -86,6 +86,19 @@ const Hero = () => {
             See my work
             <span className="material-symbols-outlined text-sm">arrow_forward</span>
           </a>
+          
+          {aboutData && aboutData.cv_path && (
+            <a 
+              href={aboutData.cv_path.startsWith('http') ? aboutData.cv_path : `/api/uploads/${aboutData.cv_path}`} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="inline-flex items-center gap-2 text-primary hover:text-brand-500 px-7 py-3.5 rounded-full border border-outline-variant hover:border-brand-500 text-sm font-medium hover:scale-105 active:scale-95 transition-all"
+            >
+              Download CV
+              <span className="material-symbols-outlined text-sm">download</span>
+            </a>
+          )}
+          
           <a href="#about" className="inline-flex items-center gap-2 text-secondary hover:text-primary px-7 py-3.5 rounded-full border border-outline-variant hover:border-primary text-sm font-medium hover:scale-105 active:scale-95 transition-all">
             More about me
           </a>
