@@ -55,31 +55,35 @@ const Work = () => {
           <div className="py-20 text-center text-secondary">Loading...</div>
         ) : (
           <>
-            <div className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 lg:gap-x-12 gap-y-10">
               {visible.map((p, i) => (
-                <div key={p.id || i} className="group flex flex-col md:flex-row md:items-start gap-6 md:gap-10 pb-8 border-b border-outline-variant/40 reveal" style={{ transitionDelay: `${(i % 6) * 0.05}s` }}>
-                  <div className="md:w-24 md:text-right shrink-0">
-                    <span className="text-sm font-medium text-secondary">{p.year}</span>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="heading-md text-primary mb-2">{p.title}</h3>
-                    <p className="body-md text-secondary mb-3 max-w-lg">{p.description}</p>
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      {(p.tags || []).map((tag, ti) => (
-                        <span key={ti} className="text-xs text-secondary bg-surface-container-low px-2.5 py-1 rounded-md">{tag}</span>
-                      ))}
+                <div key={p.id || i} className="group flex flex-col gap-5 pb-8 border-b border-outline-variant/40 reveal" style={{ transitionDelay: `${(i % 6) * 0.05}s` }}>
+                  <div className="flex gap-5 items-center">
+                    <div className="w-14 h-14 md:w-16 md:h-16 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center text-lg font-bold text-white text-center leading-tight" style={{ backgroundColor: pickColor(i) }}>
+                      {p.image && !imgErrors[p.id || i] ? (
+                        <img src={p.image.startsWith('http') ? p.image : `/uploads/${p.image}`} alt={p.title} className="w-full h-full object-cover" onError={() => setImgErrors(prev => ({...prev, [p.id || i]: true}))} />
+                      ) : (
+                        p.title.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
+                      )}
                     </div>
-                    <div className="flex gap-4">
-                      {p.repo_url && <a href={p.repo_url} target="_blank" rel="noreferrer" className="text-xs text-secondary hover:text-primary flex items-center gap-1.5 transition-colors"><FiGithub /> Repo</a>}
-                      {p.demo_url && <a href={p.demo_url} target="_blank" rel="noreferrer" className="text-xs text-secondary hover:text-primary flex items-center gap-1.5 transition-colors"><FiExternalLink /> Demo</a>}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between mb-1">
+                        <h3 className="text-lg md:text-xl font-semibold text-primary truncate pr-2">{p.title}</h3>
+                        <span className="text-xs font-medium text-secondary whitespace-nowrap mt-1">{p.year}</span>
+                      </div>
+                      <div className="flex gap-4 mt-1">
+                        {p.repo_url && <a href={p.repo_url} target="_blank" rel="noreferrer" className="text-xs text-secondary hover:text-primary flex items-center gap-1.5 transition-colors"><FiGithub /> Repo</a>}
+                        {p.demo_url && <a href={p.demo_url} target="_blank" rel="noreferrer" className="text-xs text-secondary hover:text-primary flex items-center gap-1.5 transition-colors"><FiExternalLink /> Demo</a>}
+                      </div>
                     </div>
                   </div>
-                  <div className="hidden md:block w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center text-lg font-bold text-white text-center leading-tight" style={{ backgroundColor: pickColor(i) }}>
-                    {p.image && !imgErrors[p.id || i] ? (
-                      <img src={p.image.startsWith('http') ? p.image : `/uploads/${p.image}`} alt={p.title} className="w-full h-full object-cover" onError={() => setImgErrors(prev => ({...prev, [p.id || i]: true}))} />
-                    ) : (
-                      p.title.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
-                    )}
+                  
+                  <p className="text-sm text-secondary line-clamp-3">{p.description}</p>
+                  
+                  <div className="flex flex-wrap gap-2 mt-auto">
+                    {(p.tags || []).map((tag, ti) => (
+                      <span key={ti} className="text-[10px] sm:text-xs text-secondary bg-surface-container-low border border-outline-variant/50 px-2 py-1 rounded-md">{tag}</span>
+                    ))}
                   </div>
                 </div>
               ))}
