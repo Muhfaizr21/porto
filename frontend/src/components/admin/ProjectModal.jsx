@@ -34,7 +34,7 @@ const ProjectModal = ({ isOpen, onClose, project, onSave }) => {
         color: project.color || '#3B82F6'
       });
       if (project.image) {
-        setImagePreview(`/api/uploads/${project.image}`);
+        setImagePreview(project.image.startsWith('http') ? project.image : `/api/uploads/${project.image}`);
       } else {
         setImagePreview('');
       }

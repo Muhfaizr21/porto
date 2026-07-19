@@ -21,7 +21,7 @@ const BlogModal = ({ isOpen, onClose, blog, onSave }) => {
         content: blog.content || ''
       });
       if (blog.image) {
-        setImagePreview(`/api/uploads/${blog.image}`);
+        setImagePreview(blog.image.startsWith('http') ? blog.image : `/api/uploads/${blog.image}`);
       } else {
         setImagePreview('');
       }
