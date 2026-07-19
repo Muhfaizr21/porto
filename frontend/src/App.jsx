@@ -15,16 +15,15 @@ function AnimatedRoutes() {
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    el.classList.remove('page-enter');
-    el.classList.add('page-exit');
+    el.style.opacity = '0';
     requestAnimationFrame(() => {
-      el.classList.remove('page-exit');
-      el.classList.add('page-enter');
+      el.style.transition = 'opacity 0.3s ease-out';
+      el.style.opacity = '1';
     });
   }, [location.pathname]);
 
   return (
-    <div ref={containerRef} className="transition-all duration-300 ease-out">
+    <div ref={containerRef}>
       <Routes location={location}>
         <Route path="/" element={<Landing />} />
         <Route path="/admin/login" element={<Login />} />
