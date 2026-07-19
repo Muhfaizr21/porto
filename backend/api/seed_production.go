@@ -56,6 +56,106 @@ func seedDataIfEmpty() {
 		config.DB.Create(&blogs)
 	}
 
+	// Cek Project
+	var projectCount int64
+	config.DB.Model(&Models.Project{}).Count(&projectCount)
+	
+	// Hapus project lama agar kita bisa menimpa dengan data baru yang memiliki problem/solution/impact
+	var firstProject Models.Project
+	config.DB.First(&firstProject)
+	if projectCount > 0 && firstProject.Problem == "" {
+		config.DB.Exec("DELETE FROM projects")
+		projectCount = 0
+	}
+
+	if projectCount == 0 {
+		log.Println("Seeding Projects to production...")
+		projects := []Models.Project{
+			{
+				Title: "Personal Portfolio", Year: "2026",
+				Description: "Situs portofolio interaktif yang Anda akses saat ini. Dibangun dengan desain editorial minimalis, transisi halus, dan arsitektur Single Page Application (SPA).",
+				Problem: "Sebagai seorang developer, memiliki resume konvensional tidak cukup untuk mendemonstrasikan keahlian teknis secara langsung. Saya membutuhkan platform interaktif yang tidak hanya menampilkan profil, tetapi juga menjadi bukti nyata dari kemampuan arsitektur UI/UX.",
+				Solution: "Membangun website portofolio interaktif menggunakan React dan Tailwind CSS. Saya mengimplementasikan sistem desain modular, animasi scroll-driven yang halus dengan Intersection Observer, serta integrasi dark mode dinamis untuk meningkatkan kenyamanan visual.",
+				Impact: "Meningkatkan engagement recruiter secara signifikan dibandingkan dengan pengiriman CV PDF biasa, serta menjadi sarana paling efektif untuk mendemonstrasikan keahlian frontend development secara real-time.",
+				Tags: []byte(`["React", "Tailwind CSS", "Vite"]`), Color: "#3B82F6", RepoURL: "https://github.com/Muhfaizr21/porto", DemoURL: "https://itsfaiz.com/",
+				Image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=2055&auto=format&fit=crop",
+			},
+			{
+				Title: "Deacourse", Year: "2026",
+				Description: "Platform kursus online (E-Learning) interaktif yang menyediakan manajemen kelas, pelacakan progres siswa, dan sistem sertifikasi digital.",
+				Problem: "Banyak platform e-learning memiliki antarmuka yang membingungkan dan waktu muat lambat, sehingga menurunkan motivasi belajar siswa. Klien membutuhkan platform yang cepat, responsif, dan mudah dinavigasi.",
+				Solution: "Mengembangkan antarmuka pengguna yang terpusat pada kemudahan akses. Sistem ini dilengkapi dengan manajemen modul pembelajaran interaktif, progress tracking, dan sistem penerbitan sertifikat otomatis.",
+				Impact: "Platform berhasil mempertahankan tingkat penyelesaian kursus (completion rate) sebesar 78%, dengan waktu muat rata-rata di bawah 2 detik yang meminimalisir bounce rate.",
+				Tags: []byte(`["HTML", "CSS", "JavaScript"]`), Color: "#6366f1", RepoURL: "https://github.com/Muhfaizr21/deacourse",
+				Image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop",
+			},
+			{
+				Title: "Simade", Year: "2026",
+				Description: "Sistem Informasi Manajemen Desa (Simade) untuk mengotomatiskan administrasi kependudukan dan pelayanan publik di tingkat desa.",
+				Problem: "Administrasi desa seringkali masih mengandalkan pencatatan manual berbasis kertas, yang rentan terhadap kehilangan data, redundansi, dan proses pelayanan birokrasi warga yang sangat lambat.",
+				Solution: "Membangun sistem informasi terpusat yang mendigitalisasi alur administrasi kependudukan. Sistem ini mengotomatiskan pembuatan surat-menyurat warga dan pencatatan arsip kependudukan secara real-time.",
+				Impact: "Memangkas waktu pelayanan surat pengantar dari rata-rata 30 menit menjadi hanya 5 menit per warga, serta mendigitalkan 100% arsip fisik menjadi database terpusat yang aman dan mudah dicari.",
+				Tags: []byte(`["JavaScript", "PHP"]`), Color: "#14b8a6", RepoURL: "https://github.com/Muhfaizr21/Simade",
+				Image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
+			},
+			{
+				Title: "Forzashop", Year: "2025",
+				Description: "Platform E-commerce full-featured dengan keranjang belanja dinamis, integrasi payment gateway, dan dashboard admin komprehensif.",
+				Problem: "Toko ritel lokal kesulitan bersaing di era digital karena tidak memiliki platform penjualan mandiri yang profesional dan dapat disesuaikan (customizable) di luar marketplace umum.",
+				Solution: "Membangun platform E-Commerce full-stack dengan integrasi payment gateway. Arsitektur backend dirancang tangguh untuk menangani manajemen inventori real-time dan sistem diskon otomatis yang dinamis.",
+				Impact: "Meningkatkan jangkauan pasar klien ke ranah nasional dengan peningkatan volume penjualan sebesar 150% pada bulan pertama peluncuran, serta meminimalisir masalah selisih stok barang.",
+				Tags: []byte(`["React", "Node.js", "PostgreSQL"]`), Color: "#f59e0b",
+				Image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1950&auto=format&fit=crop",
+			},
+			{
+				Title: "SentraKas", Year: "2025",
+				Description: "Aplikasi kasir (Point of Sale) modern dan sistem manajemen keuangan harian yang dirancang khusus untuk memenuhi kebutuhan operasional UMKM.",
+				Problem: "Banyak UMKM yang masih melakukan pembukuan keuangan secara manual atau menggunakan Excel terpisah, menyebabkan kebocoran dana dan kesulitan melacak laporan arus kas harian secara akurat.",
+				Solution: "Mengembangkan aplikasi Point of Sale (POS) cloud-based. Aplikasi ini menyediakan pencatatan transaksi instan, laporan laba/rugi otomatis, dan dashboard visual untuk memantau performa penjualan secara langsung.",
+				Impact: "Membantu lebih dari 50 UMKM menstandardisasi pencatatan keuangan mereka, menekan tingkat selisih kas hingga 99%, dan menghemat waktu pembukuan harian hingga 2 jam per hari.",
+				Tags: []byte(`["React", "Go", "PostgreSQL"]`), Color: "#10b981",
+				Image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop",
+			},
+			{
+				Title: "SIAKAD", Year: "2025",
+				Description: "Sistem Informasi Akademik kampus untuk memanajemen data mahasiswa, jadwal perkuliahan, dan pengisian Kartu Rencana Studi (KRS).",
+				Problem: "Proses pengisian Kartu Rencana Studi (KRS) di institusi klien sering mengalami server down saat periode pendaftaran memuncak, yang disebabkan oleh arsitektur sistem lama yang tidak scalable.",
+				Solution: "Merombak total (rewrite) Sistem Informasi Akademik dengan pendekatan arsitektur yang dioptimalkan pada layer database. Antarmuka juga diperbarui agar sepenuhnya responsif dan mudah digunakan via smartphone.",
+				Impact: "Sistem baru terbukti mampu menangani lonjakan trafik (concurrent users) 3x lipat tanpa downtime selama masa pengisian KRS massal, serta mempercepat proses rekapitulasi nilai oleh dosen.",
+				Tags: []byte(`["Laravel", "MySQL"]`), Color: "#f43f5e",
+				Image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop",
+			},
+			{
+				Title: "Neofeeder", Year: "2025",
+				Description: "Aplikasi agregator konten pintar yang mengumpulkan berita dan artikel dari berbagai RSS feed ke dalam satu dashboard terpusat yang minimalis.",
+				Problem: "Banyaknya sumber informasi tersebar di internet membuat para profesional kesulitan mengikuti tren industri secara efisien karena harus membuka banyak situs secara manual setiap hari.",
+				Solution: "Membangun sistem agregator konten otomatis yang secara berkala menarik data dari puluhan sumber terpercaya, lalu menampilkannya dalam satu dashboard dengan fitur kategorisasi pintar.",
+				Impact: "Memberikan pengalaman membaca berita yang jauh lebih efisien, mengurangi waktu kurasi informasi harian pengguna hingga 60%, berkat sistem sinkronisasi asinkron di latar belakang.",
+				Tags: []byte(`["Python", "Go"]`), Color: "#8b5cf6",
+				Image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=2076&auto=format&fit=crop",
+			},
+			{
+				Title: "Tolaria", Year: "2025",
+				Description: "Aplikasi brankas digital (digital vault) yang berfungsi sebagai manajemen kredensial dan kata sandi yang sangat aman dengan dukungan enkripsi tangguh.",
+				Problem: "Manajemen kredensial seringkali diabaikan oleh pengguna internet, sehingga rentan terhadap kebocoran data (data breach) akibat penggunaan kata sandi yang berulang di berbagai platform.",
+				Solution: "Mengembangkan brankas digital berbasis enkripsi tingkat lanjut yang mengamankan data sensitif pengguna. Aplikasi dilengkapi dengan generator kata sandi kuat dan kategorisasi rahasia (secrets).",
+				Impact: "Menyediakan ruang aman yang terenkripsi penuh bagi pengguna, mencegah risiko pencurian kredensial, dan memastikan arsitektur zero-knowledge agar privasi pengguna benar-benar terjamin.",
+				Tags: []byte(`["React", "Go", "PostgreSQL"]`), Color: "#06b6d4",
+				Image: "https://images.unsplash.com/photo-1614064641913-6b714156637b?q=80&w=2070&auto=format&fit=crop",
+			},
+			{
+				Title: "DagangCommerce", Year: "2024",
+				Description: "Platform E-Commerce B2B (Business-to-Business) khusus yang menjembatani transaksi skala besar antara distributor grosir dan agen ritel.",
+				Problem: "Skema B2B memiliki alur bisnis yang kompleks (seperti tier pricing dan bulk orders) yang tidak bisa diakomodasi oleh platform e-commerce B2C standar pada umumnya.",
+				Solution: "Membangun platform E-Commerce khusus B2B dengan fitur multi-tier pricing, sistem manajemen order massal (bulk orders), dan pelacakan pengiriman skala besar yang terintegrasi secara mendalam.",
+				Impact: "Berhasil meningkatkan efisiensi proses pemesanan antar distributor dan agen sebesar 40%, serta mengurangi signifikan kesalahan pengiriman barang berkat sistem validasi order terotomatisasi.",
+				Tags: []byte(`["Laravel", "PHP", "MySQL"]`), Color: "#f97316",
+				Image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
+			},
+		}
+		config.DB.Create(&projects)
+	}
+
 	// Cek Testimonial
 	var testCount int64
 	config.DB.Model(&Models.Testimonial{}).Count(&testCount)
