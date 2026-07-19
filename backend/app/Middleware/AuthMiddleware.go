@@ -4,11 +4,10 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/Muhfaizr21/portof-backend/config"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
 )
-
-var jwtKey = []byte("super-secret-key")
 
 func RequireAuth(c *gin.Context) {
 	authHeader := c.GetHeader("Authorization")
@@ -20,7 +19,7 @@ func RequireAuth(c *gin.Context) {
 
 	tokenString := strings.TrimPrefix(authHeader, "Bearer ")
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-		return jwtKey, nil
+		return config.GetJWTKey(), nil
 	})
 
 	if err != nil || !token.Valid {

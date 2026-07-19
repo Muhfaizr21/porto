@@ -9,20 +9,43 @@ import (
 func SetupRoutes(r *gin.Engine) {
 	api := r.Group("/api")
 	{
+		// Public routes
 		api.GET("/health", Controllers.HealthCheck)
 		api.POST("/contact", Controllers.SubmitContact)
+		api.GET("/projects", Controllers.GetProjects)
+		api.GET("/experiences", Controllers.GetExperiences)
+		api.GET("/educations", Controllers.GetEducations)
+		api.GET("/certifications", Controllers.GetCertifications)
+		api.GET("/awards", Controllers.GetAwards)
+		api.GET("/about", Controllers.GetAbout)
+		api.POST("/auth/login", Controllers.Login)
 
-		// Auth
-		auth := api.Group("/auth")
-		{
-			auth.POST("/login", Controllers.Login)
-		}
-
-		// Admin Protected Routes
+		// Admin protected routes
 		admin := api.Group("/admin")
 		admin.Use(Middleware.RequireAuth)
 		{
+			admin.PUT("/about", Controllers.UpdateAbout)
 			admin.GET("/contacts", Controllers.GetContacts)
+			admin.POST("/projects", Controllers.CreateProject)
+			admin.PUT("/projects/:id", Controllers.UpdateProject)
+			admin.DELETE("/projects/:id", Controllers.DeleteProject)
+			admin.POST("/upload", Controllers.UploadImage)
+			
+			admin.POST("/experiences", Controllers.CreateExperience)
+			admin.PUT("/experiences/:id", Controllers.UpdateExperience)
+			admin.DELETE("/experiences/:id", Controllers.DeleteExperience)
+
+			admin.POST("/educations", Controllers.CreateEducation)
+			admin.PUT("/educations/:id", Controllers.UpdateEducation)
+			admin.DELETE("/educations/:id", Controllers.DeleteEducation)
+
+			admin.POST("/certifications", Controllers.CreateCertification)
+			admin.PUT("/certifications/:id", Controllers.UpdateCertification)
+			admin.DELETE("/certifications/:id", Controllers.DeleteCertification)
+
+			admin.POST("/awards", Controllers.CreateAward)
+			admin.PUT("/awards/:id", Controllers.UpdateAward)
+			admin.DELETE("/awards/:id", Controllers.DeleteAward)
 		}
 	}
 }

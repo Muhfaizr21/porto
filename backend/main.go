@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"os"
+	"strings"
 
 	"github.com/Muhfaizr21/portof-backend/config"
 	"github.com/Muhfaizr21/portof-backend/routes"
@@ -19,13 +20,21 @@ func main() {
 
 	// Konfigurasi CORS
 	corsConfig := cors.DefaultConfig()
-	corsConfig.AllowAllOrigins = true // Pada tahap production, ubah ke URL spesifik
+	allowedOrigins := os.Getenv("CORS_ORIGINS")
+	if allowedOrigins == "" {
+		corsConfig.AllowAllOrigins = true
+	} else {
+		corsConfig.AllowOrigins = strings.Split(allowedOrigins, ",")
+	}
 	corsConfig.AllowMethods = []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"}
-	corsConfig.AllowHeaders = []string{"Origin", "Content-Type", "Accept"}
+	corsConfig.AllowHeaders = []string{"Origin", "Content-Type", "Accept", "Authorization"}
 	r.Use(cors.New(corsConfig))
 
 	// Pendaftaran Routes (seperti routes/api.php di Laravel)
 	routes.SetupRoutes(r)
+
+	// Menyajikan folder uploads sebagai static files
+	r.Static("/uploads", "./uploads")
 
 	// Menentukan port
 	port := os.Getenv("PORT")

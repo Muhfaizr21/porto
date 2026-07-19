@@ -1,52 +1,68 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const About = () => {
-  return (
-    <section id="about" className="bg-surface py-section-gap border-t border-outline-variant relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-blue-50/50 to-transparent -z-10"></div>
-      
-      <div className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
-        
-        <div className="md:col-span-5 reveal-on-scroll">
-          <div className="aspect-[4/5] bg-surface-container overflow-hidden rounded-2xl shadow-lg relative group">
-            <div className="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
-            {/* Visual representation placeholder based on user's site */}
-            <div className="w-full h-full bg-neutral-200 dark:bg-neutral-800 flex items-center justify-center p-8 text-center group-hover:scale-105 transition-transform duration-700">
-              <span className="font-headline-md text-secondary">Foto Profil LinkedIn</span>
-            </div>
-          </div>
-        </div>
-        
-        <div className="md:col-span-6 md:col-start-7 reveal-on-scroll" style={{ animationDelay: '0.1s' }}>
-          <span className="font-label-sm text-secondary uppercase tracking-widest mb-6 block">Tentang Saya</span>
-          <h2 className="font-headline-lg text-headline-lg text-primary mb-8 leading-tight">
-            Arsitek Sistem yang Berorientasi pada Efisiensi.
-          </h2>
-          <div className="space-y-6 font-body-lg text-body-lg text-secondary">
-            <p>
-              Saya adalah seorang <strong>Full-Stack Software Engineer</strong> yang berbasis di Kota Cirebon, Jawa Barat. Latar belakang saya berasal dari <strong>Politeknik Negeri Indramayu</strong>, di mana saya mengasah kemampuan analitis dan pemecahan masalah teknis.
-            </p>
-            <p>
-              Keahlian utama saya terletak pada perancangan <strong>Sistem Pemantauan Otomatis</strong> dan <strong>Optimasi Web</strong>. Saya membangun arsitektur perangkat lunak end-to-end yang tangguh, memastikan keandalan, dan memaksimalkan kinerja untuk memberikan dampak nyata pada proses bisnis.
-            </p>
-          </div>
-          
-          <div className="mt-12 flex gap-12 border-t border-outline-variant pt-8">
-            <div>
-              <div className="font-headline-lg text-primary">Teknik</div>
-              <div className="font-label-sm text-secondary uppercase tracking-widest mt-2">Informatika</div>
-            </div>
-            <div>
-              <div className="font-headline-lg text-primary">Full-Stack</div>
-              <div className="font-label-sm text-secondary uppercase tracking-widest mt-2">Software Engineering</div>
-            </div>
-            <div>
-              <div className="font-headline-lg text-primary">Automated</div>
-              <div className="font-label-sm text-secondary uppercase tracking-widest mt-2">Monitoring Systems</div>
-            </div>
-          </div>
-        </div>
+  const [projects, setProjects] = useState(null);
+  const [years, setYears] = useState(null);
+  const [certs, setCerts] = useState(null);
+  const [stacks, setStacks] = useState(null);
 
+  useEffect(() => {
+    fetch('/api/projects').then(r => r.json()).then(d => { if (d.data) setProjects(d.data.length); }).catch(() => setProjects(42));
+    fetch('/api/experiences').then(r => r.json()).then(d => {
+      if (d.data && d.data.length) {
+        const yearsSet = new Set();
+        d.data.forEach(e => {
+          if (e.start_year) yearsSet.add(parseInt(e.start_year));
+          if (e.end_year) yearsSet.add(parseInt(e.end_year));
+        });
+        setYears(yearsSet.size || 3);
+      }
+    }).catch(() => setYears(3));
+    fetch('/api/certifications').then(r => r.json()).then(d => { if (d.data) setCerts(d.data.length); }).catch(() => setCerts(8));
+    fetch('/api/experiences').then(r => r.json()).then(d => {
+      if (d.data && d.data.length) {
+        const allSkills = new Set();
+        d.data.forEach(e => { if (e.skills) e.skills.split(',').forEach(s => allSkills.add(s.trim().toLowerCase())); });
+        setStacks(allSkills.size || 5);
+      }
+    }).catch(() => setStacks(5));
+  }, []);
+
+  const stats = [
+    { value: projects ?? 42, suffix: '+', label: 'Projects completed' },
+    { value: years ?? 3, suffix: '+', label: 'Years experience' },
+    { value: certs ?? 8, suffix: '+', label: 'Certifications' },
+    { value: stacks ?? 5, suffix: '+', label: 'Tech stacks' },
+  ];
+
+  return (
+    <section id="about" className="py-section-gap border-t border-outline-variant">
+      <div className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-16">
+          <div className="md:col-span-2 reveal">
+            <p className="label-sm text-brand-600 mb-4">About</p>
+            <p className="body-lg text-secondary leading-relaxed">
+              Based in Cirebon, Indonesia. Currently pursuing a BASc in Software Engineering 
+              at Politeknik Negeri Indramayu while working on real-world projects.
+            </p>
+            <p className="body-lg text-secondary leading-relaxed mt-6">
+              My focus is building reliable, scalable web systems — from monitoring platforms 
+              to full-stack applications. I believe in clean architecture, pragmatic tooling, 
+              and software that actually helps people.
+            </p>
+          </div>
+
+          <div className="md:col-span-3 md:col-start-4 reveal" style={{ transitionDelay: '0.1s' }}>
+            <div className="grid grid-cols-2 gap-6">
+              {stats.map((s, i) => (
+                <div key={i} className="p-6 bg-surface-container-low rounded-2xl">
+                  <p className="text-2xl font-bold text-primary">{s.value}{s.suffix}</p>
+                  <p className="text-sm text-secondary mt-1">{s.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

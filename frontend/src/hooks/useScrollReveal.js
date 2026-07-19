@@ -1,24 +1,31 @@
 import { useEffect } from 'react';
 
-export function useScrollReveal(options = { threshold: 0.1 }) {
+export function useScrollReveal() {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('reveal');
+          entry.target.classList.add('show');
           observer.unobserve(entry.target);
         }
       });
-    }, options);
+    }, { threshold: 0.05 });
 
-    const elements = document.querySelectorAll('.reveal-on-scroll');
-    elements.forEach((el) => {
-      el.style.opacity = '0';
-      observer.observe(el);
+    const observeElements = () => {
+      document.querySelectorAll('.reveal:not(.show)').forEach(el => observer.observe(el));
+    };
+
+    observeElements();
+
+    const mutationObserver = new MutationObserver(() => {
+      observeElements();
     });
 
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
     return () => {
-      elements.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
+      mutationObserver.disconnect();
     };
-  }, [options]);
+  }, []);
 }
