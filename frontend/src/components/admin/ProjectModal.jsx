@@ -30,7 +30,16 @@ const ProjectModal = ({ isOpen, onClose, project, onSave }) => {
         problem: project.problem || '',
         solution: project.solution || '',
         impact: project.impact || '',
-        tags: project.tags ? JSON.parse(project.tags).join(', ') : '',
+        tags: (() => {
+          if (!project.tags) return '';
+          try {
+            const parsed = JSON.parse(project.tags);
+            return Array.isArray(parsed) ? parsed.join(', ') : String(parsed);
+          } catch (e) {
+            if (Array.isArray(project.tags)) return project.tags.join(', ');
+            return typeof project.tags === 'string' ? project.tags.replace(/^\[|\]$/g, '').replace(/"/g, '').trim() : '';
+          }
+        })(),
         color: project.color || '#3B82F6'
       });
       if (project.image) {
