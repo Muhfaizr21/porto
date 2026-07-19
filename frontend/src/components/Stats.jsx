@@ -40,7 +40,7 @@ const Stats = () => {
     projects: 0,
     experience: 0,
     certifications: 0,
-    tools: 14 // Based on the 14 skills in TechStack.jsx
+    tools: 30 // Based on the 30 skills in TechStack.jsx
   });
 
   useEffect(() => {
