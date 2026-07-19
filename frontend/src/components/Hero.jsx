@@ -1,21 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Hero = () => {
+  const [aboutData, setAboutData] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/about')
+      .then(r => r.json())
+      .then(d => {
+        if (d.data) {
+          setAboutData(d.data);
+        }
+      })
+      .catch(console.error);
+  }, []);
+
   return (
     <section className="min-h-[85vh] flex flex-col justify-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
       <div className="max-w-3xl">
         <p className="label-sm text-brand-600 mb-6 tracking-[0.15em]">Muhammad Faiz Ramadhan</p>
 
-        <h1 className="heading-xl text-primary leading-[1.05] mb-6">
-          Full-Stack<br />
-          <span className="text-secondary font-medium">Software&nbsp;Engineer</span>
-          <span className="text-brand-500 font-medium">.</span>
-        </h1>
+        {aboutData && aboutData.title ? (
+          <h1 className="heading-xl text-primary leading-[1.05] mb-6">
+            {aboutData.title}
+            <span className="text-brand-500 font-medium">.</span>
+          </h1>
+        ) : (
+          <h1 className="heading-xl text-primary leading-[1.05] mb-6">
+            Full-Stack<br />
+            <span className="text-secondary font-medium">Software&nbsp;Engineer</span>
+            <span className="text-brand-500 font-medium">.</span>
+          </h1>
+        )}
 
         <p className="body-lg text-secondary max-w-2xl mb-10 leading-relaxed">
-          I design and build scalable web systems — from automated monitoring platforms 
-          to high-performance web applications. Currently based in Indonesia, working with 
-          startups and agencies to ship reliable software.
+          {aboutData && aboutData.description_1 ? aboutData.description_1 : (
+            <>
+              I design and build scalable web systems — from automated monitoring platforms 
+              to high-performance web applications. Currently based in Indonesia, working with 
+              startups and agencies to ship reliable software.
+            </>
+          )}
         </p>
 
         <div className="flex flex-wrap gap-4">
