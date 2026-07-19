@@ -40,7 +40,7 @@ const Header = () => {
     const ids = ['work', 'experience', 'stack', 'about', 'blog', 'contact'];
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) setActiveSection(e.target.id); });
-    }, { rootMargin: '-40% 0px -55% 0px' });
+    }, { rootMargin: '-30% 0px -30% 0px' });
     ids.forEach(id => { const el = document.getElementById(id); if (el) observer.observe(el); });
     return () => observer.disconnect();
   }, []);
@@ -64,6 +64,7 @@ const Header = () => {
           <nav className="hidden md:flex items-center gap-10 text-sm text-secondary">
             {links.map(l => (
               <a key={l.href} href={l.href}
+                onClick={() => setActiveSection(l.href.slice(1))}
                 className={`transition-colors ${activeSection === l.href.slice(1) ? 'text-primary font-medium' : 'hover:text-primary'}`}>
                 {l.label}
               </a>
@@ -99,7 +100,9 @@ const Header = () => {
           {links.map(l => {
             const isActive = activeSection === l.href.slice(1);
             return (
-              <a key={l.href} href={l.href} className={`flex flex-col items-center justify-center w-full h-full space-y-1 transition-colors ${isActive ? 'text-brand-600' : 'text-secondary hover:text-primary'}`}>
+              <a key={l.href} href={l.href} 
+                onClick={() => setActiveSection(l.href.slice(1))}
+                className={`flex flex-col items-center justify-center w-full h-full space-y-1 transition-colors ${isActive ? 'text-brand-600' : 'text-secondary hover:text-primary'}`}>
                 <span className="material-symbols-outlined text-2xl">{l.icon}</span>
                 <span className="text-[10px] font-medium">{l.label}</span>
               </a>
