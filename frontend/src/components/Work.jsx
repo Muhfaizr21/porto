@@ -78,7 +78,7 @@ const Work = () => {
                     </div>
                   </div>
                   
-                  <p className="text-sm text-secondary line-clamp-3">{p.description}</p>
+                  <p className="text-sm text-secondary">{p.description}</p>
                   
                   {/* Case Study Details */}
                   {(p.problem || p.solution || p.impact) && (
@@ -86,19 +86,19 @@ const Work = () => {
                       {p.problem && (
                         <div>
                           <h4 className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Problem</h4>
-                          <p className="text-sm text-secondary line-clamp-2">{p.problem}</p>
+                          <p className="text-sm text-secondary">{p.problem}</p>
                         </div>
                       )}
                       {p.solution && (
                         <div>
                           <h4 className="text-xs font-bold text-brand-600 uppercase tracking-wider mb-1">Solution</h4>
-                          <p className="text-sm text-secondary line-clamp-2">{p.solution}</p>
+                          <p className="text-sm text-secondary">{p.solution}</p>
                         </div>
                       )}
                       {p.impact && (
                         <div>
                           <h4 className="text-xs font-bold text-emerald-600 uppercase tracking-wider mb-1">Impact</h4>
-                          <p className="text-sm text-secondary line-clamp-2">{p.impact}</p>
+                          <p className="text-sm text-secondary">{p.impact}</p>
                         </div>
                       )}
                     </div>
