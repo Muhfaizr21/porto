@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
+const fallback = [
+  { quote: 'Professional, on-time, and the monitoring system transformed our daily operations.', name: 'Project Lead', role: 'PT Aplikasi Dagang Teknologi', company: 'PT Aplikasi Dagang Teknologi' },
+  { quote: 'Clean architecture and well-structured code. Easy for our internal team to extend.', name: 'Tech Lead', role: 'Politeknik Negeri Indramayu', company: 'Politeknik Negeri Indramayu' },
+  { quote: 'High dedication. Translates business needs into technical solutions effectively.', name: 'Mentor', role: 'Software Engineering Program', company: 'Politeknik Negeri Indramayu' },
+];
 
 const Testimonials = () => {
-  const items = [
-    { text: 'Professional, on-time, and the monitoring system transformed our daily operations.', name: 'Project Lead', role: 'PT Aplikasi Dagang Teknologi' },
-    { text: 'Clean architecture and well-structured code. Easy for our internal team to extend.', name: 'Tech Lead', role: 'Politeknik Negeri Indramayu' },
-    { text: 'High dedication. Translates business needs into technical solutions effectively.', name: 'Mentor', role: 'Software Engineering Program' },
-  ];
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/testimonials')
+      .then(r => r.json())
+      .then(d => { 
+        // The API returns an array directly, not d.data
+        if (Array.isArray(d) && d.length > 0) setItems(d); 
+        else setItems(fallback); 
+      })
+      .catch(() => setItems(fallback))
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) return null;
 
   return (
     <section id="testimonials" className="py-section-gap border-t border-outline-variant">
@@ -14,10 +31,10 @@ const Testimonials = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {items.map((t, i) => (
             <div key={i} className="reveal" style={{ transitionDelay: `${i * 0.08}s` }}>
-              <blockquote className="text-base text-primary leading-relaxed mb-6">&ldquo;{t.text}&rdquo;</blockquote>
+              <blockquote className="text-base text-primary leading-relaxed mb-6">&ldquo;{t.quote}&rdquo;</blockquote>
               <div className="text-sm">
                 <p className="font-medium text-primary">{t.name}</p>
-                <p className="text-secondary">{t.role}</p>
+                <p className="text-secondary">{t.role} {t.company && `at ${t.company}`}</p>
               </div>
             </div>
           ))}
