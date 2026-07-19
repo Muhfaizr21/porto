@@ -6,6 +6,7 @@ import ExperienceModal from '../components/admin/ExperienceModal';
 import EducationModal from '../components/admin/EducationModal';
 import CertificationModal from '../components/admin/CertificationModal';
 import AwardModal from '../components/admin/AwardModal';
+import TestimonialModal from '../components/admin/TestimonialModal';
 import AboutTab from '../components/admin/tabs/AboutTab';
 
 const Dashboard = () => {
@@ -39,6 +40,10 @@ const Dashboard = () => {
   const [loadingAwards, setLoadingAwards] = useState(false);
   const [errorAwards, setErrorAwards] = useState('');
 
+  const [testimonials, setTestimonials] = useState([]);
+  const [loadingTestimonials, setLoadingTestimonials] = useState(false);
+  const [errorTestimonials, setErrorTestimonials] = useState('');
+
   // Modal States
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -54,6 +59,9 @@ const Dashboard = () => {
 
   const [isAwardModalOpen, setIsAwardModalOpen] = useState(false);
   const [editingAward, setEditingAward] = useState(null);
+
+  const [isTestimonialModalOpen, setIsTestimonialModalOpen] = useState(false);
+  const [editingTestimonial, setEditingTestimonial] = useState(null);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -154,12 +162,27 @@ const Dashboard = () => {
       }
     };
 
+    const fetchTestimonials = async () => {
+      try {
+        setLoadingTestimonials(true);
+        const res = await fetch('/api/testimonials');
+        const data = await res.json();
+        if (res.ok) setTestimonials(data);
+        else setErrorTestimonials(data.error || 'Gagal memuat testimonial');
+      } catch (err) {
+        setErrorTestimonials('Gagal menghubungi server');
+      } finally {
+        setLoadingTestimonials(false);
+      }
+    };
+
     if (activeTab === 'contacts') fetchContacts();
     if (activeTab === 'projects') fetchProjects();
     if (activeTab === 'experiences') fetchExperiences();
     if (activeTab === 'educations') fetchEducations();
     if (activeTab === 'certifications') fetchCertifications();
     if (activeTab === 'awards') fetchAwards();
+    if (activeTab === 'testimonials') fetchTestimonials();
   }, [activeTab, navigate]);
 
   const handleLogout = () => {
@@ -253,8 +276,24 @@ const Dashboard = () => {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
-      if (res.ok) setAwards(prev => prev.filter(a => a.id !== id));
+      if (res.ok) setAwards(prev => prev.filter(p => p.id !== id));
       else alert('Gagal menghapus penghargaan');
+    } catch (err) {
+      alert('Gagal menghubungi server');
+    }
+  };
+
+  const openAddTestimonialModal = () => { setEditingTestimonial(null); setIsTestimonialModalOpen(true); };
+  const openEditTestimonialModal = (item) => { setEditingTestimonial(item); setIsTestimonialModalOpen(true); };
+  const handleDeleteTestimonial = async (id) => {
+    if (!window.confirm('Yakin ingin menghapus testimonial ini?')) return;
+    try {
+      const res = await fetch(`/api/admin/testimonials/${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      });
+      if (res.ok) setTestimonials(prev => prev.filter(p => p.ID !== id));
+      else alert('Gagal menghapus testimonial');
     } catch (err) {
       alert('Gagal menghubungi server');
     }
@@ -331,6 +370,13 @@ const Dashboard = () => {
           >
             <FiAward className="text-xl" />
             <span>Penghargaan</span>
+          </button>
+          <button 
+            onClick={() => setActiveTab('testimonials')} 
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${activeTab === 'testimonials' ? 'bg-surface-container-highest font-medium text-primary shadow-sm' : 'text-secondary hover:bg-surface-container-highest hover:text-primary'}`}
+          >
+            <FiMessageSquare className="text-xl" />
+            <span>Testimonial</span>
           </button>
           <a href="/" target="_blank" className="flex items-center gap-3 text-secondary hover:bg-surface-container-highest hover:text-primary px-4 py-3 rounded-xl font-medium transition-colors mt-4">
             <FiHome />
