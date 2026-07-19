@@ -17,8 +17,16 @@ const Hero = () => {
   return (
     <section className="min-h-[85vh] flex flex-col justify-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
       <div className="max-w-3xl">
-        <p className="label-sm text-brand-600 mb-6 tracking-[0.15em]">Muhammad Faiz Ramadhan</p>
-
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 mb-6">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-outline-variant shrink-0">
+            <img 
+              src="/profile.jpeg" 
+              alt="Profile" 
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <p className="label-sm text-brand-600 tracking-[0.15em] m-0">Muhammad Faiz Ramadhan</p>
+        </div>
         {aboutData && aboutData.title ? (
           <h1 className="heading-xl text-primary leading-[1.05] mb-6">
             {aboutData.title}
