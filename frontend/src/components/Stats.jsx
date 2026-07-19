@@ -8,6 +8,10 @@ const Counter = ({ end, suffix = '', duration = 2000 }) => {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    
+    // Reset counted so it can animate again if the 'end' value updates from API
+    counted.current = false;
+    
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !counted.current) {
