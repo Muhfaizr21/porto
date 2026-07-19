@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict s86kbS8fBE98S9KZ4TcXUkHb8jEMYxHJ8zW1pI4RPyQPu40PZ1jzsFRdEDM3Yce
+\restrict 5MFQ1kIeawygUbmaMfnm4o6LojnRJUJrHcr4gX6NTb7EUmy1gDO4FcMoe72BxUE
 
 -- Dumped from database version 18.4 (Homebrew)
 -- Dumped by pg_dump version 18.4 (Homebrew)
@@ -578,9 +578,9 @@ COPY public.projects (id, title, repo_url, demo_url, year, description, tags, co
 --
 
 COPY public.testimonials (id, created_at, updated_at, deleted_at, quote, name, role, company) FROM stdin;
-1	2026-07-20 02:32:23.848321+07	2026-07-20 02:32:23.848321+07	\N	Professional, on-time, and the monitoring system transformed our daily operations.	Project Lead	PT Aplikasi Dagang Teknologi	PT Aplikasi Dagang Teknologi
-2	2026-07-20 02:32:23.848321+07	2026-07-20 02:32:23.848321+07	\N	Clean architecture and well-structured code. Easy for our internal team to extend.	Tech Lead	Politeknik Negeri Indramayu	Politeknik Negeri Indramayu
-3	2026-07-20 02:32:23.848321+07	2026-07-20 02:32:23.848321+07	\N	High dedication. Translates business needs into technical solutions effectively.	Mentor	Software Engineering Program	Politeknik Negeri Indramayu
+1	2026-07-20 02:32:23.848321+07	2026-07-20 02:32:23.848321+07	\N	Profesional, tepat waktu, dan sistem pemantauan yang dibuat sangat membantu operasi harian kami.	Project Lead	PT Aplikasi Dagang Teknologi	PT Aplikasi Dagang Teknologi
+2	2026-07-20 02:32:23.848321+07	2026-07-20 02:32:23.848321+07	\N	Arsitektur kode yang bersih dan terstruktur dengan baik. Sangat mudah bagi tim internal kami untuk mengembangkannya.	Tech Lead	Politeknik Negeri Indramayu	Politeknik Negeri Indramayu
+3	2026-07-20 02:32:23.848321+07	2026-07-20 02:32:23.848321+07	\N	Dedikasi tinggi. Mampu menerjemahkan kebutuhan bisnis menjadi solusi teknis yang efektif dengan sangat baik.	Mentor	Software Engineering Program	Politeknik Negeri Indramayu
 \.
 
 
@@ -761,5 +761,5 @@ CREATE INDEX idx_testimonials_deleted_at ON public.testimonials USING btree (del
 -- PostgreSQL database dump complete
 --
 
-\unrestrict s86kbS8fBE98S9KZ4TcXUkHb8jEMYxHJ8zW1pI4RPyQPu40PZ1jzsFRdEDM3Yce
+\unrestrict 5MFQ1kIeawygUbmaMfnm4o6LojnRJUJrHcr4gX6NTb7EUmy1gDO4FcMoe72BxUE
 
