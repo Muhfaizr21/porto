@@ -3,9 +3,10 @@ import {
   SiReact, SiNextdotjs, SiTailwindcss, SiVuedotjs, SiAngular,
   SiNodedotjs, SiExpress, SiNestjs, SiLaravel, SiPhp, SiPython, SiGo,
   SiMysql, SiPostgresql, SiMongodb, SiRedis, SiFirebase, SiSupabase,
-  SiDocker, SiKubernetes, SiAmazonwebservices, SiGooglecloud, SiVercel, SiNginx,
-  SiGit, SiGithub, SiFigma, SiVite, SiTypescript, SiJavascript, SiHtml5, SiCss3
+  SiDocker, SiKubernetes, SiGooglecloud, SiVercel, SiNginx,
+  SiGit, SiGithub, SiFigma, SiVite, SiTypescript, SiJavascript, SiHtml5, SiCss
 } from 'react-icons/si';
+import { FaAws } from 'react-icons/fa';
 
 const TechStack = () => {
   const categories = [
@@ -19,7 +20,7 @@ const TechStack = () => {
         { name: 'TypeScript', icon: <SiTypescript />, color: '#3178C6' },
         { name: 'JavaScript', icon: <SiJavascript />, color: '#F7DF1E' },
         { name: 'HTML5', icon: <SiHtml5 />, color: '#E34F26' },
-        { name: 'CSS3', icon: <SiCss3 />, color: '#1572B6' },
+        { name: 'CSS3', icon: <SiCss />, color: '#1572B6' },
         { name: 'Vite', icon: <SiVite />, color: '#646CFF' },
         { name: 'Figma', icon: <SiFigma />, color: '#F24E1E' },
       ]
@@ -44,7 +45,7 @@ const TechStack = () => {
       skills: [
         { name: 'Docker', icon: <SiDocker />, color: '#2496ED' },
         { name: 'Kubernetes', icon: <SiKubernetes />, color: '#326CE5' },
-        { name: 'AWS', icon: <SiAmazonwebservices />, color: '#232F3E' },
+        { name: 'AWS', icon: <FaAws />, color: '#232F3E' },
         { name: 'GCP', icon: <SiGooglecloud />, color: '#4285F4' },
         { name: 'Vercel', icon: <SiVercel />, color: '#000000' },
         { name: 'Firebase', icon: <SiFirebase />, color: '#FFCA28' },
