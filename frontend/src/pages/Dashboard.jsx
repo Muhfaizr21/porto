@@ -844,11 +844,14 @@ const Dashboard = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-outline-variant text-sm text-primary">
-                    {testimonials.map(item => (
+                    {(testimonials || []).map(item => (
                       <tr key={item.ID} className="hover:bg-surface-container/50 transition-colors">
-                        <td className="py-3 px-6 font-medium">{item.client_name}</td>
+                        <td className="py-3 px-6 font-medium">
+                          {item.name}
+                          {item.role && <span className="block text-xs text-secondary font-normal">{item.role}</span>}
+                        </td>
                         <td className="py-3 px-6">{item.company}</td>
-                        <td className="py-3 px-6 hidden md:table-cell text-secondary truncate max-w-xs">{item.message}</td>
+                        <td className="py-3 px-6 hidden md:table-cell text-secondary truncate max-w-xs">{item.quote}</td>
                         <td className="py-3 px-6 text-right">
                           <div className="flex justify-end gap-2">
                             <button onClick={() => openEditTestimonialModal(item)} className="p-2 text-blue-500 hover:bg-blue-500/10 rounded-xl transition-colors"><FiEdit2 /></button>

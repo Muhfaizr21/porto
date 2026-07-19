@@ -10,7 +10,7 @@ import (
 
 // Get all testimonials
 func GetTestimonials(c *gin.Context) {
-	var testimonials []Models.Testimonial
+	testimonials := []Models.Testimonial{}
 	if err := config.DB.Find(&testimonials).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal mengambil data testimonial"})
 		return
