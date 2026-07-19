@@ -57,21 +57,36 @@ const About = () => {
           </div>
 
           <div className="md:col-span-3 md:col-start-4 reveal" style={{ transitionDelay: '0.1s' }}>
-            <div className="grid grid-cols-2 gap-6">
+            <div className="flex flex-col gap-4">
               {stats.length > 0 ? stats.map((s, i) => (
-                <div key={i} className="p-6 bg-surface-container-low rounded-2xl">
-                  <p className="text-2xl font-bold text-primary">{s.value}</p>
-                  <p className="text-sm text-secondary mt-1">{s.label}</p>
+                <div key={i} className="group p-5 sm:p-6 bg-surface-container-lowest border border-outline-variant/60 rounded-2xl hover:border-brand-500/30 hover:shadow-sm transition-all duration-300 relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-1 h-full bg-brand-500/20 group-hover:bg-brand-500 transition-colors"></div>
+                  <h3 className="text-lg sm:text-xl font-bold text-primary leading-tight mb-2 group-hover:text-brand-600 transition-colors">
+                    {s.value}
+                  </h3>
+                  <p className="text-sm text-secondary flex items-center gap-2">
+                    {s.label}
+                  </p>
                 </div>
               )) : (
                 <>
-                  <div className="p-6 bg-surface-container-low rounded-2xl">
-                    <p className="text-2xl font-bold text-primary">42+</p>
-                    <p className="text-sm text-secondary mt-1">Projects completed</p>
+                  <div className="group p-5 sm:p-6 bg-surface-container-lowest border border-outline-variant/60 rounded-2xl hover:border-brand-500/30 hover:shadow-sm transition-all duration-300 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-brand-500/20 group-hover:bg-brand-500 transition-colors"></div>
+                    <h3 className="text-lg sm:text-xl font-bold text-primary leading-tight mb-2 group-hover:text-brand-600 transition-colors">
+                      42+
+                    </h3>
+                    <p className="text-sm text-secondary flex items-center gap-2">
+                      Projects completed
+                    </p>
                   </div>
-                  <div className="p-6 bg-surface-container-low rounded-2xl">
-                    <p className="text-2xl font-bold text-primary">3+</p>
-                    <p className="text-sm text-secondary mt-1">Years experience</p>
+                  <div className="group p-5 sm:p-6 bg-surface-container-lowest border border-outline-variant/60 rounded-2xl hover:border-brand-500/30 hover:shadow-sm transition-all duration-300 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-brand-500/20 group-hover:bg-brand-500 transition-colors"></div>
+                    <h3 className="text-lg sm:text-xl font-bold text-primary leading-tight mb-2 group-hover:text-brand-600 transition-colors">
+                      3+
+                    </h3>
+                    <p className="text-sm text-secondary flex items-center gap-2">
+                      Years experience
+                    </p>
                   </div>
                 </>
               )}
