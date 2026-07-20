@@ -1,2 +1,0 @@
-const { SiReact, SiNextdotjs, SiTailwindcss, SiVuedotjs, SiAngular, SiNodedotjs, SiExpress, SiNestjs, SiLaravel, SiPhp, SiPython, SiGo, SiMysql, SiPostgresql, SiMongodb, SiRedis, SiFirebase, SiSupabase, SiDocker, SiKubernetes, SiAmazonwebservices, SiGooglecloud, SiVercel, SiNginx, SiGit, SiGithub, SiFigma, SiVite, SiTypescript, SiJavascript, SiHtml5, SiCss3 } = require('react-icons/si');
-console.log("All imported!");
