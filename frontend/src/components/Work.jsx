@@ -26,8 +26,19 @@ const Work = () => {
     fetch('/api/projects').then(r => r.json()).then(d => setProjects(d.data || [])).catch(() => setProjects(fallback)).finally(() => setLoading(false));
   }, []);
 
-  const allTags = ['All', ...new Set(projects.flatMap(p => p.tags || []))];
-  const filtered = activeTag === 'All' ? projects : projects.filter(p => (p.tags || []).includes(activeTag));
+  const getTagsArray = (tags) => {
+    if (!tags) return [];
+    if (Array.isArray(tags)) return tags;
+    try {
+      const parsed = JSON.parse(tags);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+      return [tags];
+    }
+  };
+
+  const allTags = ['All', ...new Set(projects.flatMap(p => getTagsArray(p.tags)))];
+  const filtered = activeTag === 'All' ? projects : projects.filter(p => getTagsArray(p.tags).includes(activeTag));
   const visible = filtered.slice(0, visibleCount);
 
   const pickColor = (i) => colors[i % colors.length];
@@ -104,7 +115,7 @@ const Work = () => {
                     </div>
                   )}
                   <div className="flex flex-wrap gap-2 mt-auto">
-                    {(p.tags || []).map((tag, ti) => (
+                    {getTagsArray(p.tags).map((tag, ti) => (
                       <span key={ti} className="text-[10px] sm:text-xs text-secondary bg-surface-container-low border border-outline-variant/50 px-2 py-1 rounded-md">{tag}</span>
                     ))}
                   </div>
